@@ -1,4 +1,5 @@
 import requests
+import os
 import cx_Oracle
 from collections import defaultdict
 from datetime import datetime
@@ -16,7 +17,11 @@ from dotenv import load_dotenv
 api_key = os.getenv("OPENWEATHERMAP_API_KEY")
 
 def get_connection():
-    return cx_Oracle.connect("system", "pythonoracle", "localhost/XE")
+    user = os.getenv("ORACLE_USER")
+    password = os.getenv("ORACLE_PASSWORD")
+    dsn = os.getenv("ORACLE_DSN")
+    return cx_Oracle.connect(user, password, dsn)
+
 
 @login_required
 def historial(request):
