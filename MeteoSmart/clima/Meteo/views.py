@@ -11,8 +11,9 @@ from django.contrib.admin.views.decorators import staff_member_required
 from .models import UsuarioExtendido
 from django.core.mail import send_mail
 from django.conf import settings
+from dotenv import load_dotenv
 
-API_KEY = '0c68f74e08071a11ea5cfaddf4f26bb7'
+api_key = os.getenv("OPENWEATHERMAP_API_KEY")
 
 def get_connection():
     return cx_Oracle.connect("system", "pythonoracle", "localhost/XE")
