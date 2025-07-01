@@ -1,0 +1,250 @@
+/* Tipografía base */
+body {
+    font-family: 'Segoe UI', 'Roboto', sans-serif;
+    background-color: #f7f9fb;
+    color: #333;
+    font-size: 16px;
+    line-height: 1.6;
+}
+
+.navbar-nav .nav-link:hover {
+    text-decoration: underline;
+    opacity: 0.85;
+}
+
+
+/* Contenedor principal */
+.container {
+    max-width: 960px;
+    margin: 0 auto;
+}
+
+/* Encabezados */
+h1, h2, h3 {
+    color: #1a3d6d;
+    font-weight: 600;
+}
+
+/* Botones */
+.btn-primary {
+    background-color: #2980b9;
+    border-color: #2471a3;
+}
+
+.btn-primary:hover {
+    background-color: #1f618d;
+    border-color: #1b4f72;
+}
+
+.btn-outline-info {
+    color: #17a2b8;
+    border-color: #17a2b8;
+}
+
+.btn-outline-info:hover {
+    background-color: #17a2b8;
+    color: white;
+}
+
+/* Mensajes flash */
+.alert {
+    border-radius: 4px;
+    font-weight: 500;
+}
+
+/* Lista de favoritas */
+.list-group-item {
+    background-color: #ffffff;
+    border: 1px solid #dee2e6;
+}
+
+/* Pie de página */
+footer {
+    background-color: #1a3d6d;
+    color: white;
+    font-size: 0.9rem;
+}
+footer a {
+    color: #ddd;
+}
+footer a:hover {
+    text-decoration: underline;
+}
+
+/* Navegación */
+.navbar-brand {
+    font-weight: 600;
+    font-size: 1.4rem;
+}
+
+.card:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 0.75rem 1.5rem rgba(0,0,0,0.15);
+}
+/* 🌟 Cards de pronóstico con bordes dinámicos */
+.card-pronostico {
+  transition: transform 0.3s, box-shadow 0.3s, border 0.3s;
+  border-width: 2px;
+  border-style: solid;
+  border-color: transparent;
+}
+
+/* Hover con elevación */
+.card-pronostico:hover {
+  transform: translateY(-6px);
+  box-shadow: 0 0.75rem 1.5rem rgba(0,0,0,0.15);
+}
+
+/* Fondo claro y bordes redondeados */
+.card-pronostico.bg-light {
+  background-color: #fefefe;
+  border-radius: 1rem;
+}
+
+/* Temperatura fría: azul */
+.card-pronostico.temp-fria {
+  border-color: #3498db;
+}
+
+/* Temperatura templada: verde */
+.card-pronostico.temp-templada {
+  border-color: #27ae60;
+}
+
+/* Temperatura calurosa: naranja */
+.card-pronostico.temp-calor {
+  border-color: #e67e22;
+}
+
+/* Temperatura extrema: rojo */
+.card-pronostico.temp-extrema {
+  border-color: #c0392b;
+}
+
+/* Iconos más grandes */
+.card-pronostico .card-body img {
+  width: 64px;
+  height: 64px;
+  object-fit: contain;
+  margin-bottom: 0.5rem;
+}
+
+/* Temperatura grande */
+.card-pronostico .fs-5 {
+  color: #1a3d6d;
+  font-weight: bold;
+}
+
+/* Responsive */
+@media (max-width: 576px) {
+  .card-pronostico {
+    min-width: 160px;
+  }
+}
+@media (min-width: 577px) and (max-width: 991px) {
+  .card-pronostico {
+    min-width: 200px;
+  }
+}
+@media (min-width: 992px) {
+  .card-pronostico {
+    min-width: 220px;
+  }
+}
+/* 🌟 Cards especiales de pronóstico */
+.card-pronostico {
+  transition: transform 0.3s, box-shadow 0.3s, border-color 0.6s;
+  border-width: 2px;
+  border-style: solid;
+  border-color: transparent;
+  border-radius: 1rem;
+  position: relative;
+  overflow: hidden;
+}
+
+/* Sombra suave */
+.card-pronostico:hover {
+  transform: translateY(-6px);
+  box-shadow: 0 0.75rem 1.5rem rgba(0,0,0,0.2);
+}
+
+/* Fondo claro */
+.card-pronostico.bg-light {
+  background-color: #ffffff;
+}
+
+/* Tipografía bonita */
+.card-pronostico .card-body {
+  font-family: 'Segoe UI', 'Roboto', sans-serif;
+}
+
+/* Icono grande y centrado */
+.card-pronostico .card-body img {
+  width: 70px;
+  height: 70px;
+  object-fit: contain;
+  margin-bottom: 0.5rem;
+}
+
+/* Temperatura grande y destacada */
+.card-pronostico .fs-5 {
+  color: #1a3d6d;
+  font-weight: 700;
+}
+
+/* Bordes de color según temperatura */
+.card-pronostico.temp-fria {
+  border-color: #3498db;
+  animation: pulse-fria 2s infinite;
+}
+.card-pronostico.temp-templada {
+  border-color: #27ae60;
+  animation: pulse-templada 2s infinite;
+}
+.card-pronostico.temp-calor {
+  border-color: #e67e22;
+  animation: pulse-calor 2s infinite;
+}
+.card-pronostico.temp-extrema {
+  border-color: #c0392b;
+  animation: pulse-extrema 2s infinite;
+}
+
+/* Animaciones de pulse */
+@keyframes pulse-fria {
+  0% { box-shadow: 0 0 0 0 rgba(52,152,219,0.4); }
+  70% { box-shadow: 0 0 0 10px rgba(52,152,219,0); }
+  100% { box-shadow: 0 0 0 0 rgba(52,152,219,0); }
+}
+@keyframes pulse-templada {
+  0% { box-shadow: 0 0 0 0 rgba(39,174,96,0.4); }
+  70% { box-shadow: 0 0 0 10px rgba(39,174,96,0); }
+  100% { box-shadow: 0 0 0 0 rgba(39,174,96,0); }
+}
+@keyframes pulse-calor {
+  0% { box-shadow: 0 0 0 0 rgba(230,126,34,0.4); }
+  70% { box-shadow: 0 0 0 10px rgba(230,126,34,0); }
+  100% { box-shadow: 0 0 0 0 rgba(230,126,34,0); }
+}
+@keyframes pulse-extrema {
+  0% { box-shadow: 0 0 0 0 rgba(192,57,43,0.4); }
+  70% { box-shadow: 0 0 0 10px rgba(192,57,43,0); }
+  100% { box-shadow: 0 0 0 0 rgba(192,57,43,0); }
+}
+
+/* Responsividad */
+@media (max-width: 576px) {
+  .card-pronostico {
+    min-width: 160px;
+  }
+}
+@media (min-width: 577px) and (max-width: 991px) {
+  .card-pronostico {
+    min-width: 200px;
+  }
+}
+@media (min-width: 992px) {
+  .card-pronostico {
+    min-width: 220px;
+  }
+}

@@ -1,0 +1,12 @@
+{% extends 'tiempo/base.html' %}
+{% block title %}Sesión cerrada{% endblock %}
+
+{% block content %}
+<div class="d-flex flex-column align-items-center justify-content-center mt-5">
+  <h2 class="text-center mb-3">👋 Has cerrado sesión correctamente</h2>
+  <p>Esperamos verte pronto por aquí.</p>
+  <a href="{% url 'info_clima' %}" class="btn btn-primary mt-3">🌤 Volver a la página principal</a>
+</div>
+{% endblock %}
+
+

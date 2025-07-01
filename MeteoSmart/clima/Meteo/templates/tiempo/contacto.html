@@ -1,0 +1,28 @@
+{% extends 'tiempo/base.html' %}
+{% block title %}Contacto{% endblock %}
+{% block content %}
+<div class="container mt-4">
+  <h1 class="mb-3">📬 Contacto</h1>
+  <form method="post" class="card p-4 shadow-sm">
+    {% csrf_token %}
+    <div class="mb-3">
+      <label for="nombre" class="form-label">Nombre</label>
+      <input type="text" name="nombre" id="nombre" class="form-control" required>
+    </div>
+    <div class="mb-3">
+      <label for="email" class="form-label">Correo electrónico</label>
+      <input type="email" name="email" id="email" class="form-control" required>
+    </div>
+    <div class="mb-3">
+      <label for="mensaje" class="form-label">Mensaje</label>
+      <textarea name="mensaje" id="mensaje" rows="4" class="form-control" required></textarea>
+    </div>
+    <button type="submit" class="btn btn-primary">Enviar mensaje</button>
+  </form>
+  {% if messages %}
+    {% for message in messages %}
+      <div class="alert alert-success mt-3">{{ message }}</div>
+    {% endfor %}
+  {% endif %}
+</div>
+{% endblock %}

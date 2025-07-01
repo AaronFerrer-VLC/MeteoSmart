@@ -1,0 +1,45 @@
+{% extends "admin/base_site.html" %}
+{% load static %}
+{% block title %}Logs de API{% endblock %}
+
+{% block content %}
+<div class="container mt-4">
+  <h1>📄 Logs de API</h1>
+
+  <a href="{% url 'limpiar_logs' %}" class="btn btn-danger mb-3"
+     onclick="return confirm('¿Seguro que quieres borrar todos los logs?')">
+    🗑 Borrar todos los logs
+  </a>
+
+  {% if messages %}
+    {% for message in messages %}
+      <div class="alert alert-{{ message.tags }}">{{ message }}</div>
+    {% endfor %}
+  {% endif %}
+
+  {% if logs %}
+    <table class="table table-striped">
+      <thead>
+        <tr>
+          <th>ID</th>
+          <th>Endpoint</th>
+          <th>Fecha</th>
+          <th>Respuesta (truncada)</th>
+        </tr>
+      </thead>
+      <tbody>
+        {% for id, endpoint, fecha, resp in logs %}
+        <tr>
+          <td>{{ id }}</td>
+          <td>{{ endpoint }}</td>
+          <td>{{ fecha }}</td>
+          <td><pre>{{ resp }}</pre></td>
+        </tr>
+        {% endfor %}
+      </tbody>
+    </table>
+  {% else %}
+    <p>No hay logs.</p>
+  {% endif %}
+</div>
+{% endblock %}

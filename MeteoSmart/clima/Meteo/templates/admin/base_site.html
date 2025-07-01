@@ -1,0 +1,14 @@
+{% extends "admin/base.html" %}
+
+{% block branding %}
+<h1 id="site-name">
+  <a href="{% url 'admin:index' %}">MeteoSmart Admin</a>
+</h1>
+{% endblock %}
+
+{% block nav-global %}
+<ul class="nav-global">
+  <li><a href="{% url 'ver_logs' %}">🔍 Ver Logs API</a></li>
+</ul>
+{% endblock %}
+

@@ -1,0 +1,49 @@
+{% extends 'tiempo/base.html' %}
+{% block title %}Ciudades Favoritas{% endblock %}
+
+{% block content %}
+<div class="container mt-4">
+  <h2 class="text-center mb-4">🌟 Ciudades Favoritas de {{ user.username }}</h2>
+
+  <!-- Formulario añadir ciudad -->
+  <form method="post" class="row g-2 mb-4 justify-content-center">
+    {% csrf_token %}
+    <div class="col-md-5">
+      <input type="text" name="ciudad" class="form-control" placeholder="Añadir ciudad favorita" required>
+    </div>
+    <div class="col-auto">
+      <button type="submit" class="btn btn-primary">➕ Añadir</button>
+    </div>
+  </form>
+
+  <!-- Mensajes flash -->
+  {% if messages %}
+    {% for message in messages %}
+      <div class="alert alert-{{ message.tags }} text-center">{{ message }}</div>
+    {% endfor %}
+  {% endif %}
+
+  <!-- Lista de favoritas -->
+  {% if favoritas %}
+    <ul class="list-group">
+      {% for id, nombre, pais in favoritas %}
+        <li class="list-group-item d-flex justify-content-between align-items-center">
+          <span>{{ nombre }} ({{ pais }})</span>
+          <div class="btn-group">
+            <a href="{% url 'info_clima' %}?ciudad={{ nombre }}" class="btn btn-sm btn-outline-info">🌤 Ver clima</a>
+            <form method="post" action="{% url 'eliminar_favorita' id=id %}">
+              {% csrf_token %}
+              <button class="btn btn-sm btn-outline-danger" onclick="return confirm('¿Eliminar {{ nombre }} de tus favoritas?')">
+                🗑 Quitar
+              </button>
+            </form>
+          </div>
+        </li>
+      {% endfor %}
+    </ul>
+  {% else %}
+    <p class="text-center text-muted">No tienes ciudades favoritas.</p>
+  {% endif %}
+</div>
+{% endblock %}
+

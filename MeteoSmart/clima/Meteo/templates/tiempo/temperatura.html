@@ -1,0 +1,111 @@
+{% extends 'tiempo/base.html' %}
+{% block title %}Consulta de Clima{% endblock %}
+{% block content %}
+<h1 class="text-center mb-4">🌍 Consulta del Clima</h1>
+<form method="get" class="row g-2 justify-content-center mb-4">
+  <div class="col-md-4">
+    <input type="text" name="ciudad" class="form-control" placeholder="Introduce una ciudad" required>
+  </div>
+  <div class="col-auto">
+    <button type="submit" class="btn btn-primary">Buscar</button>
+  </div>
+</form>
+{% if messages %}
+  {% for message in messages %}
+    <div class="alert alert-{{ message.tags }} text-center">
+      {{ message }}
+    </div>
+  {% endfor %}
+{% endif %}
+{% if error %}
+  <div class="alert alert-danger text-center">{{ error }}</div>
+{% elif datos %}
+  <div class="card mx-auto shadow mb-4 rounded-4" style="max-width: 500px;">
+    <div class="card-body text-center">
+      <h4 class="card-title mb-3">{{ datos.ciudad }} ({{ datos.pais }})</h4>
+      <img src="https://openweathermap.org/img/wn/{{ datos.icono }}@2x.png" alt="icono clima">
+      <p class="fs-5">🌡️ Temperatura: <strong>{{ datos.temperatura }}°C</strong></p>
+      <p>🌡️ Sensación térmica: {{ datos.sensacion_termica }}°C</p>
+      <p>💧 Humedad: {{ datos.humedad }}%</p>
+      <p>🌬️ Viento: {{ datos.viento }} m/s</p>
+      <p>🌥️ Condición: {{ datos.condicion }}</p>
+      <p>📊 Temp. media último mes: {{ datos.temp_media }}</p>
+    </div>
+  </div>
+  <!-- Tabs selector -->
+  <ul class="nav nav-tabs justify-content-center mb-4" id="pronosticoTab" role="tablist">
+    <li class="nav-item" role="presentation">
+      <button class="nav-link active" id="horas-tab" data-bs-toggle="tab" data-bs-target="#horas" type="button" role="tab" aria-controls="horas" aria-selected="true">
+        Por Horas
+      </button>
+    </li>
+    <li class="nav-item" role="presentation">
+      <button class="nav-link" id="dias-tab" data-bs-toggle="tab" data-bs-target="#dias" type="button" role="tab" aria-controls="dias" aria-selected="false">
+        Por Días
+      </button>
+    </li>
+  </ul>
+  <!-- Tabs content -->
+  <div class="tab-content" id="pronosticoTabContent">
+
+    <!-- Pronóstico horario -->
+    <div class="tab-pane fade show active" id="horas" role="tabpanel" aria-labelledby="horas-tab">
+      <h3 class="mt-4 text-center">🌤 Pronóstico por horas</h3>
+      <div class="d-flex overflow-auto py-3">
+        {% for p in pronostico %}
+       <div class="card card-pronostico bg-light text-center mx-2 flex-shrink-0
+       {% if p.temp <= 5 %} temp-fria
+       {% elif p.temp <= 20 %} temp-templada
+       {% elif p.temp <= 30 %} temp-calor
+       {% else %} temp-extrema
+       {% endif %}">
+         <div class="card-body">
+           <p class="fw-semibold text-primary mb-1">{{ p.hora|date:"H:i" }}</p>
+           <img src="https://openweathermap.org/img/wn/{{ p.icono }}@2x.png" alt="icono">
+           <p class="mb-1">{{ p.descripcion }}</p>
+           <p class="fs-5 mb-2">🌡 {{ p.temp }}°C</p>
+           <div class="small text-muted">
+             💧 {{ p.humedad }}%<br>
+             🌬 {{ p.viento }} m/s<br>
+             🧭 {{ p.direccion_viento }}<br>
+             📈 {{ p.presion }} hPa
+           </div>
+         </div>
+       </div>
+        {% endfor %}
+      </div>
+    </div>
+    <!-- Pronóstico diario -->
+    <div class="tab-pane fade" id="dias" role="tabpanel" aria-labelledby="dias-tab">
+      <h3 class="mt-4 text-center">📅 Pronóstico diario</h3>
+      <div class="d-flex overflow-auto py-3">
+        {% for d in pronostico_diario %}
+         <div class="card card-pronostico bg-light text-center mx-2 flex-shrink-0
+         {% if d.temp_max <= 5 %} temp-fria
+         {% elif d.temp_max <= 20 %} temp-templada
+         {% elif d.temp_max <= 30 %} temp-calor
+         {% else %} temp-extrema
+         {% endif %}">
+           <div class="card-body">
+             <h5 class="fw-semibold text-primary">{{ d.fecha }}</h5>
+             <img src="https://openweathermap.org/img/wn/{{ d.icono }}@2x.png" alt="icono">
+             <p class="mb-1">{{ d.descripcion }}</p>
+             <p>🌡 Máx: <strong>{{ d.temp_max }}°C</strong></p>
+             <p>🌡 Mín: <strong>{{ d.temp_min }}°C</strong></p>
+             <div class="small text-muted">
+               💧 {{ d.humedad }}%<br>
+               🌬 {{ d.viento }} m/s<br>
+               📈 {{ d.presion }} hPa
+             </div>
+           </div>
+         </div>
+        {% endfor %}
+      </div>
+    </div>
+  </div>
+{% endif %}
+{% endblock %}
+
+
+
+
