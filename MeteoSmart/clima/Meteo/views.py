@@ -14,7 +14,7 @@ from django.core.mail import send_mail
 from django.conf import settings
 from dotenv import load_dotenv
 
-api_key = os.getenv("OPENWEATHERMAP_API_KEY")
+API_KEY = os.getenv("OPENWEATHERMAP_API_KEY")
 
 def get_connection():
     user = os.getenv("ORACLE_USER")
