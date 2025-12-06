@@ -1,0 +1,41 @@
+{% extends 'tiempo/base.html' %}
+{% block title %}Historial de Consultas - MeteoSmart{% endblock %}
+
+{% block content %}
+<div class="fade-in">
+  <h2 class="mb-4 text-center">
+    <i class="fas fa-history text-primary me-2"></i>Historial de Consultas Climáticas
+  </h2>
+
+  {% if registros %}
+    <div class="table-responsive">
+      <table class="table table-striped table-bordered">
+        <thead>
+          <tr>
+            <th><i class="fas fa-city me-2"></i>Ciudad</th>
+            <th><i class="fas fa-flag me-2"></i>País</th>
+            <th><i class="fas fa-calendar-alt me-2"></i>Fecha y Hora</th>
+          </tr>
+        </thead>
+        <tbody>
+          {% for nombre, pais, fecha in registros %}
+            <tr>
+              <td>{{ nombre }}</td>
+              <td>{{ pais }}</td>
+              <td>{{ fecha }}</td>
+            </tr>
+          {% endfor %}
+        </tbody>
+      </table>
+    </div>
+  {% else %}
+    <div class="text-center py-5">
+      <i class="fas fa-inbox fa-3x text-muted mb-3"></i>
+      <p class="text-muted fs-5">No hay consultas registradas.</p>
+      <p class="text-muted">Comienza buscando el clima de una ciudad.</p>
+    </div>
+  {% endif %}
+</div>
+{% endblock %}
+
+

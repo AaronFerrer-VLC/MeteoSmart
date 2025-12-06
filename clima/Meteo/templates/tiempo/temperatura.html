@@ -1,0 +1,159 @@
+{% extends 'tiempo/base.html' %}
+{% block title %}Consulta de Clima - MeteoSmart{% endblock %}
+{% block content %}
+<div class="fade-in">
+<h1 class="text-center mb-4">
+    <i class="fas fa-globe-americas me-2"></i>Consulta del Clima
+</h1>
+<form method="get" class="row g-2 justify-content-center mb-4">
+  <div class="col-md-5">
+    <div class="input-group">
+      <span class="input-group-text bg-white">
+        <i class="fas fa-search text-primary"></i>
+      </span>
+      <input type="text" name="ciudad" class="form-control" placeholder="Introduce una ciudad (ej: Madrid, Barcelona, Valencia)" required>
+    </div>
+  </div>
+  <div class="col-auto">
+    <button type="submit" class="btn btn-primary">
+      <i class="fas fa-search me-2"></i>Buscar
+    </button>
+  </div>
+</form>
+{% if messages %}
+  {% for message in messages %}
+    <div class="alert alert-{{ message.tags }} text-center">
+      {{ message }}
+    </div>
+  {% endfor %}
+{% endif %}
+{% if error %}
+  <div class="alert alert-danger text-center">{{ error }}</div>
+{% elif datos %}
+  <div class="card mx-auto shadow-lg mb-4 rounded-lg slide-up" style="max-width: 600px;">
+    <div class="card-body text-center p-4">
+      <h4 class="card-title mb-3">
+        <i class="fas fa-map-marker-alt text-primary me-2"></i>
+        {{ datos.ciudad }} <small class="text-muted">({{ datos.pais }})</small>
+      </h4>
+      <img src="https://openweathermap.org/img/wn/{{ datos.icono }}@2x.png" alt="icono clima" class="mb-3">
+      <div class="row g-3 text-start">
+        <div class="col-md-6">
+          <p class="mb-2">
+            <i class="fas fa-thermometer-half text-danger me-2"></i>
+            <strong>Temperatura:</strong> {{ datos.temperatura }}°C
+          </p>
+          <p class="mb-2">
+            <i class="fas fa-temperature-low text-info me-2"></i>
+            <strong>Sensación térmica:</strong> {{ datos.sensacion_termica }}°C
+          </p>
+          <p class="mb-2">
+            <i class="fas fa-tint text-primary me-2"></i>
+            <strong>Humedad:</strong> {{ datos.humedad }}%
+          </p>
+        </div>
+        <div class="col-md-6">
+          <p class="mb-2">
+            <i class="fas fa-wind text-secondary me-2"></i>
+            <strong>Viento:</strong> {{ datos.viento }} m/s
+          </p>
+          <p class="mb-2">
+            <i class="fas fa-cloud text-muted me-2"></i>
+            <strong>Condición:</strong> {{ datos.condicion }}
+          </p>
+          <p class="mb-2">
+            <i class="fas fa-chart-line text-success me-2"></i>
+            <strong>Temp. media último mes:</strong> {{ datos.temp_media }}°C
+          </p>
+        </div>
+      </div>
+    </div>
+  </div>
+  <!-- Tabs selector -->
+  <ul class="nav nav-tabs justify-content-center mb-4" id="pronosticoTab" role="tablist">
+    <li class="nav-item" role="presentation">
+      <button class="nav-link active" id="horas-tab" data-bs-toggle="tab" data-bs-target="#horas" type="button" role="tab" aria-controls="horas" aria-selected="true">
+        Por Horas
+      </button>
+    </li>
+    <li class="nav-item" role="presentation">
+      <button class="nav-link" id="dias-tab" data-bs-toggle="tab" data-bs-target="#dias" type="button" role="tab" aria-controls="dias" aria-selected="false">
+        Por Días
+      </button>
+    </li>
+  </ul>
+  <!-- Tabs content -->
+  <div class="tab-content" id="pronosticoTabContent">
+
+    <!-- Pronóstico horario -->
+    <div class="tab-pane fade show active" id="horas" role="tabpanel" aria-labelledby="horas-tab">
+      <h3 class="mt-4 text-center">
+        <i class="fas fa-clock me-2"></i>Pronóstico por horas
+      </h3>
+      <div class="d-flex overflow-auto py-3">
+        {% for p in pronostico %}
+       <div class="card card-pronostico bg-light text-center mx-2 flex-shrink-0
+       {% if p.temp <= 5 %} temp-fria
+       {% elif p.temp <= 20 %} temp-templada
+       {% elif p.temp <= 30 %} temp-calor
+       {% else %} temp-extrema
+       {% endif %}">
+         <div class="card-body">
+           <p class="fw-semibold text-primary mb-1">{{ p.hora|date:"H:i" }}</p>
+           <img src="https://openweathermap.org/img/wn/{{ p.icono }}@2x.png" alt="icono">
+           <p class="mb-1">{{ p.descripcion }}</p>
+           <p class="fs-5 mb-2">{{ p.temp }}°C</p>
+           <div class="small text-muted">
+             <i class="fas fa-tint me-1"></i>{{ p.humedad }}%<br>
+             <i class="fas fa-wind me-1"></i>{{ p.viento }} m/s<br>
+             <i class="fas fa-compass me-1"></i>{{ p.direccion_viento }}<br>
+             <i class="fas fa-arrow-up me-1"></i>{{ p.presion }} hPa
+           </div>
+         </div>
+       </div>
+        {% endfor %}
+      </div>
+    </div>
+    <!-- Pronóstico diario -->
+    <div class="tab-pane fade" id="dias" role="tabpanel" aria-labelledby="dias-tab">
+      <h3 class="mt-4 text-center">
+        <i class="fas fa-calendar-alt me-2"></i>Pronóstico diario
+      </h3>
+      <div class="d-flex overflow-auto py-3">
+        {% for d in pronostico_diario %}
+         <div class="card card-pronostico bg-light text-center mx-2 flex-shrink-0
+         {% if d.temp_max <= 5 %} temp-fria
+         {% elif d.temp_max <= 20 %} temp-templada
+         {% elif d.temp_max <= 30 %} temp-calor
+         {% else %} temp-extrema
+         {% endif %}">
+           <div class="card-body">
+             <h5 class="fw-semibold text-primary">{{ d.fecha }}</h5>
+             <img src="https://openweathermap.org/img/wn/{{ d.icono }}@2x.png" alt="icono">
+             <p class="mb-1">{{ d.descripcion }}</p>
+             <p>
+               <i class="fas fa-arrow-up text-danger me-1"></i>
+               Máx: <strong>{{ d.temp_max }}°C</strong>
+             </p>
+             <p>
+               <i class="fas fa-arrow-down text-primary me-1"></i>
+               Mín: <strong>{{ d.temp_min }}°C</strong>
+             </p>
+             <div class="small text-muted">
+               <i class="fas fa-tint me-1"></i>{{ d.humedad }}%<br>
+               <i class="fas fa-wind me-1"></i>{{ d.viento }} m/s<br>
+               <i class="fas fa-arrow-up me-1"></i>{{ d.presion }} hPa
+             </div>
+           </div>
+         </div>
+        {% endfor %}
+      </div>
+    </div>
+  </div>
+{% endif %}
+</div>
+{% endblock %}
+
+
+
+

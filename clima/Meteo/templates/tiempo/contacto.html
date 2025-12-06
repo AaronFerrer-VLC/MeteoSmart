@@ -1,0 +1,35 @@
+{% extends 'tiempo/base.html' %}
+{% block title %}Contacto - MeteoSmart{% endblock %}
+{% block content %}
+<div class="fade-in">
+  <h1 class="mb-4 text-center">
+    <i class="fas fa-envelope text-primary me-2"></i>Contacto
+  </h1>
+  <form method="post" class="card p-4 shadow-sm">
+    {% csrf_token %}
+    <div class="mb-3">
+      <label for="nombre" class="form-label">Nombre</label>
+      <input type="text" name="nombre" id="nombre" class="form-control" required>
+    </div>
+    <div class="mb-3">
+      <label for="email" class="form-label">Correo electrónico</label>
+      <input type="email" name="email" id="email" class="form-control" required>
+    </div>
+    <div class="mb-3">
+      <label for="mensaje" class="form-label">Mensaje</label>
+      <textarea name="mensaje" id="mensaje" rows="4" class="form-control" required></textarea>
+    </div>
+    <button type="submit" class="btn btn-primary">
+      <i class="fas fa-paper-plane me-2"></i>Enviar mensaje
+    </button>
+  </form>
+  {% if messages %}
+    {% for message in messages %}
+      <div class="alert alert-success mt-3">
+        <i class="fas fa-check-circle me-2"></i>{{ message }}
+      </div>
+    {% endfor %}
+  {% endif %}
+</div>
+</div>
+{% endblock %}

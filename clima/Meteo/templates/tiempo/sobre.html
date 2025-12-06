@@ -1,0 +1,48 @@
+{% extends 'tiempo/base.html' %}
+{% block title %}Sobre el Proyecto - MeteoSmart{% endblock %}
+{% block content %}
+<div class="fade-in">
+  <h1 class="mb-4 text-center">
+    <i class="fas fa-info-circle text-primary me-2"></i>Sobre MeteoSmart
+  </h1>
+  
+  <div class="card shadow-lg mb-4">
+    <div class="card-body p-4">
+      <p class="lead">MeteoSmart es una aplicación web moderna para consultar el clima en tiempo real usando datos de 
+        <a href="https://openweathermap.org/" target="_blank" rel="noopener noreferrer" class="text-decoration-none">
+          <i class="fas fa-external-link-alt me-1"></i>OpenWeatherMap
+        </a>.
+      </p>
+      
+      <h3 class="mt-4 mb-3">
+        <i class="fas fa-star text-warning me-2"></i>Características
+      </h3>
+      <ul class="list-unstyled">
+        <li class="mb-2">
+          <i class="fas fa-check-circle text-success me-2"></i>
+          Buscar ciudades y consultar condiciones actuales
+        </li>
+        <li class="mb-2">
+          <i class="fas fa-check-circle text-success me-2"></i>
+          Ver pronósticos por hora y por día
+        </li>
+        <li class="mb-2">
+          <i class="fas fa-check-circle text-success me-2"></i>
+          Guardar ciudades favoritas
+        </li>
+        <li class="mb-2">
+          <i class="fas fa-check-circle text-success me-2"></i>
+          Consultar historial de búsquedas
+        </li>
+      </ul>
+      
+      <div class="mt-4 p-3 bg-light rounded">
+        <p class="mb-0">
+          <i class="fas fa-code me-2"></i>
+          <strong>Proyecto creado por:</strong> Christian y Aarón (España)
+        </p>
+      </div>
+    </div>
+  </div>
+</div>
+{% endblock %}
